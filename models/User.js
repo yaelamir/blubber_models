@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
   // password:  String,
   moderator: { type: Boolean, default: false }
 });
+
 // MODEL
 var User = mongoose.model("User", userSchema);
 

@@ -2,47 +2,53 @@ var mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost/blubber_app");
 
-// SCHEMA
-var userSchema = new mongoose.Schema({
-  name:      { type: String, required: true },
-  email:     { type: String, required: true },
-  // password:  String,
-  moderator: { type: Boolean, default: false }
-});
-// MODEL
-var User = mongoose.model("User", userSchema);
+var User = require("./models/User"),
+    Thread = require("./models/Thread");
 
-User.remove({}, function(err, results) {
-  User.create([
-    {
-      name: "John Marshal",
-      email: "jm@us.courts.gov",
-      moderator: true
-    },
-    {
-      name: "Oliver Wendell Holmes Jr",
-      email: "owh2@us.courts.gov",
-      moderator: false
-    },
-    {
-      name: "Thurgood Marshall",
-      email: "tm@us.courts.gov",
-      moderator: false
-    },
-    {
-      name: "Sandra Day O'Connor",
-      email: "sdo@us.courts.gov",
-      moderator: false
-    }
-    ], function(err, results) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(results);
+Thread.remove({}, function(err, results) {
+  User.remove({}, function(err, results) {
+    if (err) console.log(err);
+
+    User.create([
+      {
+        name: "John Marshal",
+        email: "jm@us.courts.gov",
+        moderator: true
+      },
+      {
+        name: "Oliver Wendell Holmes Jr",
+        email: "owh2@us.courts.gov",
+        moderator: false
+      },
+      {
+        name: "Thurgood Marshall",
+        email: "tm@us.courts.gov",
+        moderator: false
+      },
+      {
+        name: "Sandra Day O'Connor",
+        email: "sdo@us.courts.gov",
+        moderator: false
       }
-    mongoose.connection.close();
-  });
-});
+      ], function(err, users) {
+        if (err) console.log(err);
 
+        var john = users[0];
+      //console.log(users[0]._id); //just users id
+      //console.log(users[0]); //shows user
+      //console.log(users); //all users
+
+      // create threads
+        Thread.create(
+          {name: "YOLO", creator: john },
+          function(err, thread) {
+            if (err) console.log(err);
+            console.log(thread.creator);
+
+            mongoose.connection.close();
+          });
+      });
+    });
+});
 
 
