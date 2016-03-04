@@ -33,6 +33,8 @@ Thread.remove({}, function(err, results) {
       ], function(err, users) {
         if (err) console.log(err);
 
+        // console.log(users);
+
         var john = users[0];
         var thur = users[2];
       //console.log(users[0]._id); //just users id
@@ -52,14 +54,60 @@ Thread.remove({}, function(err, results) {
               creatorName: thur.name
             }
           ],
-          function(err, thread) {
+          function(err, threads) {
             if (err) console.log(err);
-            console.log(thread);
+            // console.log(threads);
 
-            mongoose.connection.close();
-          });
-      });
+            // add come posts
+            var yolo = threads[0];
+
+            yolo.posts.push({
+              author: john,
+              title: "Marbury vs Madison",
+              body: "Ya digggg?"
+            });
+            yolo.posts.push({
+              author: thur,
+              title: "Brown v BoE",
+              body: "Right? Yeah."
+            });
+
+            yolo.save(function(err, results) {
+              // console.log(err);
+              // console.log(results);
+              // console.log(yolo);
+
+              var post = yolo.posts[0];
+
+              post.comments.push({
+                author: thur,
+                body:   "Pics or it didn't happen."
+              });
+
+
+              // call save on model only
+              yolo.save(function(err, results) {
+                console.log(err);
+                console.log(results);
+                mongoose.connection.close();
+              });
+            });
+        });
     });
+  });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

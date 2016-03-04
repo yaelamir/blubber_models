@@ -1,7 +1,6 @@
 {
   "name": "blubber_models",
   "version": "1.0.0",
-  "description": "",
   "main": "Thread.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +18,7 @@
   "homepage": "https://github.com/yaelamir/blubber_models#readme",
   "dependencies": {
     "mongoose": "^4.4.6"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
