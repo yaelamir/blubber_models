@@ -1,8 +1,15 @@
 var mongoose = require("mongoose");
 
 var threadSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  creator: mongoose.Schema.Types.ObjectId
+  name:        {
+                type: String,
+                required: true
+               },
+  creator:     {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+               },
+  creatorName: String
 });
 
 var Thread = mongoose.model(

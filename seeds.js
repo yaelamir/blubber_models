@@ -34,16 +34,27 @@ Thread.remove({}, function(err, results) {
         if (err) console.log(err);
 
         var john = users[0];
+        var thur = users[2];
       //console.log(users[0]._id); //just users id
       //console.log(users[0]); //shows user
       //console.log(users); //all users
 
       // create threads
-        Thread.create(
-          {name: "YOLO", creator: john },
+        Thread.create([
+            {
+              name: "YOLO",
+              creator: john,
+              creatorName: john.name
+            },
+            {
+              name: "Think Different",
+              creator: thur,
+              creatorName: thur.name
+            }
+          ],
           function(err, thread) {
             if (err) console.log(err);
-            console.log(thread.creator);
+            console.log(thread);
 
             mongoose.connection.close();
           });

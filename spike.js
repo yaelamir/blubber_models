@@ -6,8 +6,19 @@ var User = require("./models/User"),
     Thread = require("./models/Thread");
 
 // Thread.find(); // to find a thread
-Thread.find({}, function(err, threads) {
-  console.log(threads);
+// findOne finds one. obvi
+// Thread.findOne({}, function(err, thread) {
+//   console.log(thread);
 
+//   User.findById(thread.creator, function(err, user) {
+//     console.log(user);
+//   });
+// }); // to find all thread
+
+
+
+Thread.find({}).populate("creator").exec(function(err, threads) {
+  if (err) console.log(err);
+  console.log(threads);
   mongoose.connection.close();
-}); // to find all thread
+});
